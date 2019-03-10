@@ -247,6 +247,26 @@ namespace motor {
         setPwm(index + 7, 0, value)
     }
 
+     /**
+	 * Steering gear control function new version.
+     * S1~S8.
+     * 0°~180°.
+	*/
+    //% blockId=motor_servo block="Servo1|%index|degree|%degree"
+    //% weight=100
+    //% degree.min=0 degree.max=180
+    //% index.fieldEditor="gridpicker" index.fieldOptions.columns=4
+    export function servo1(index: Servos, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        // 100hz
+        let v_us = (degree * 10 + 1000) // 1ms ~ 2.4ms
+        let value = v_us * 4095 / (1000000 / 100)
+        setPwm(index + 7, 0, value)
+    }
+	
+	
     /**
 	 * Execute a motor
      * M1~M4.
